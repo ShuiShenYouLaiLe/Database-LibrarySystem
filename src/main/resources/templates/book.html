@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>书单详情</title>
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap-theme.min.css">
+</head>
+<body>
+    <div class="container" style="max-width: 700px">
+
+        <h2 class="page-header" style="margin-top: 50px">Details</h2>
+        <div class="well">
+            <p>
+                <strong>书名：</strong><span th:text="${book.name}">我们仨</span>
+            </p>
+            <p>
+                <strong>作者：</strong><span th:text="${book.author}">蛤蛤</span>
+            </p>
+            <p>
+                <strong>说明：</strong><span th:text="${book.description}">大发财</span>
+            </p>
+            <p th:switch="${book.status}">
+                <strong>状态：</strong>
+                <span th:case="0">想读</span>
+                <span th:case="1">在读</span>
+                <span th:case="2">已读</span>
+            </p>
+        </div>
+        <div class="alert alert-success" th:unless="${book.status == 0}">
+            <strong>不错</strong>，闷声发大财！
+        </div>
+        <div class="alert alert-warning" th:if="${book.status == 0}">
+            <strong>angry</strong>！拉出去续了！
+        </div>
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>

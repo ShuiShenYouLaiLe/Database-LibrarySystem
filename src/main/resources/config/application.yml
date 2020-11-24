@@ -9,7 +9,9 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/boot?useUnicode=true&characterEncoding=utf-8
     username: root
-    password: 123456
+    password: 12345678
+  thymeleaf:
+    mode: HTML
   jpa:
     hibernate:
       ddl-auto: update
