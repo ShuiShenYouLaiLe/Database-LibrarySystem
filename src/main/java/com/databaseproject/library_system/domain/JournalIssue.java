@@ -50,7 +50,8 @@ public class JournalIssue{
 
     @ManyToOne
     @JoinColumn(name = "doc_id", insertable = false, updatable = false)
-    @JsonIgnoreProperties({"journal_issue"})
+    //@JsonIgnoreProperties({"journal_issue"})
+    @JsonIgnore
     private Document document;
 
     public Set<GuestEdits> getGuestEdits() {

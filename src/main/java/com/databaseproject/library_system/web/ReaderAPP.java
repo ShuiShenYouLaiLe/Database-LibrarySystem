@@ -1,6 +1,6 @@
 package com.databaseproject.library_system.web;
 
-import com.databaseproject.library_system.domain.Admin;
+import com.databaseproject.library_system.model.Admin;
 import com.databaseproject.library_system.domain.Reader;
 import com.databaseproject.library_system.service.ReaderService;
 import org.springframework.beans.factory.annotation.Autowired;

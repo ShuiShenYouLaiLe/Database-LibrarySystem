@@ -9,6 +9,14 @@ import java.util.Set;
 
 @Entity
 public class Publisher {
+    public long getPublisher_id() {
+        return publisher_id;
+    }
+
+    public String getPub_name() {
+        return pub_name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long publisher_id;

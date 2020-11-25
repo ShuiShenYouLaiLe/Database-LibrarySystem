@@ -1,5 +1,6 @@
 package com.databaseproject.library_system.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -47,11 +48,29 @@ public class Chairs {
 
     @ManyToOne
     @JoinColumn(name = "doc_id", insertable = false, updatable = false)
-    @JsonIgnoreProperties({"guest_edits"})
+    //@JsonIgnoreProperties({"guest_edits"})
+    @JsonIgnore
     private Document conferenceProceedings;
 
     @ManyToOne
     @JoinColumn(name = "pid", insertable = false, updatable = false)
-    @JsonIgnoreProperties({"guest_edits"})
+    //@JsonIgnoreProperties({"guest_edits"})
+    @JsonIgnore
     private Person chairs;
+
+    public Document getConferenceProceedings() {
+        return conferenceProceedings;
+    }
+
+    public void setConferenceProceedings(Document conferenceProceedings) {
+        this.conferenceProceedings = conferenceProceedings;
+    }
+
+    public Person getChairs() {
+        return chairs;
+    }
+
+    public void setChairs(Person chairs) {
+        this.chairs = chairs;
+    }
 }

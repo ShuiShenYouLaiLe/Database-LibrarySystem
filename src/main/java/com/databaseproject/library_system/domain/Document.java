@@ -11,6 +11,7 @@ import java.util.Set;
 
 @Entity
 public class Document {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long doc_id;
@@ -24,7 +25,8 @@ public class Document {
     private Long editor_id;
     @ManyToOne
     @JoinColumn(name = "publisher_id")
-    @JsonIgnoreProperties({"document"})
+    //@JsonIgnoreProperties({"document"})
+    @JsonIgnore
     private Publisher publisher;
 
     @OneToMany(mappedBy = "document", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -38,6 +40,19 @@ public class Document {
     @OneToMany(mappedBy = "conferenceProceedings", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonIgnore
     Set<Chairs> chairs;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "editor_id", referencedColumnName = "pid",insertable = false, updatable = false)
+    @JsonIgnore
+    private Person editor;
+
+    public Person getEditor() {
+        return editor;
+    }
+
+    public void setEditor(Person editor) {
+        this.editor = editor;
+    }
 
     public Set<JournalIssue> getJournalIssues() {
         return journalIssues;
@@ -88,6 +103,22 @@ public class Document {
 
     public Long getVolume_num() {
         return volume_num;
+    }
+
+    public Set<Authors> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Authors> authors) {
+        this.authors = authors;
+    }
+
+    public Set<Chairs> getChairs() {
+        return chairs;
+    }
+
+    public void setChairs(Set<Chairs> chairs) {
+        this.chairs = chairs;
     }
 
     public void setVolume_num(Long volume_num) {

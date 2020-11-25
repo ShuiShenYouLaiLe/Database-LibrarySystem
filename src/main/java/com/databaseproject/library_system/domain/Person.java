@@ -13,15 +13,42 @@ public class Person {
 
     @OneToMany(mappedBy = "person", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonIgnore
-    Set<GuestEdits> guestEdits;
+    private Set<GuestEdits> guestEdits;
 
     @OneToMany(mappedBy = "author", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonIgnore
-    Set<Authors> authors;
+    private Set<Authors> authors;
 
     @OneToMany(mappedBy = "chairs", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonIgnore
-    Set<Chairs> chairs;
+    private Set<Chairs> chairs;
+
+
+    @OneToOne(mappedBy = "editor")
+    private Document journal;
+    public Set<Authors> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Authors> authors) {
+        this.authors = authors;
+    }
+
+    public Set<Chairs> getChairs() {
+        return chairs;
+    }
+
+    public void setChairs(Set<Chairs> chairs) {
+        this.chairs = chairs;
+    }
+
+    public Document getJournal() {
+        return journal;
+    }
+
+    public void setJournal(Document journal) {
+        this.journal = journal;
+    }
 
     public Set<GuestEdits> getGuestEdits() {
         return guestEdits;

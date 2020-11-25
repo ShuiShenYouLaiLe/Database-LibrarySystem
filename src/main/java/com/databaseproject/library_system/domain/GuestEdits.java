@@ -1,6 +1,7 @@
 package com.databaseproject.library_system.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -54,12 +55,14 @@ public class GuestEdits {
             @JoinColumn(name="doc_id", referencedColumnName = "doc_id"),
             @JoinColumn(name="issue_no", referencedColumnName = "issue_no")
     })
-    @JsonIgnoreProperties({"guest_edits"})
+    //@JsonIgnoreProperties({"guest_edits"})
+    @JsonIgnore
     private JournalIssue journalIssue;
 
     @ManyToOne
     @JoinColumn(name = "pid", insertable = false, updatable = false)
-    @JsonIgnoreProperties({"guest_edits"})
+    //@JsonIgnoreProperties({"guest_edits"})
+    @JsonIgnore
     private Person person;
 
     public JournalIssue getJournalIssue() {

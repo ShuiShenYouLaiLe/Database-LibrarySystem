@@ -1,7 +1,4 @@
-package com.databaseproject.library_system.domain;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
+package com.databaseproject.library_system.model;
 
 public class Admin {
     private String name;
