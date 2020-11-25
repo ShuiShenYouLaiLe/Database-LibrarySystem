@@ -11,6 +11,9 @@
 <body>
     <div class="container">
         <h2 class="page-header">书单列表</h2>
+        <!--text-right:放在右边-->
+        <!--为实现页面跳转需要专门写一个controller-->
+        <p class="text-right"><a href="#" th:href="@{/template/books/input}" class="btn btn-primary">新增</a></p>
         <table class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
@@ -19,6 +22,7 @@
                 <th>作者</th>
                 <th>说明</th>
                 <th>状态</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody>
@@ -31,7 +35,7 @@
                 first/last:返回true/false
                 -->
                 <td th:text="${iterStat.count}">1</td>
-                <td th:text="${book.name}">书名</td>
+                <td><a herf="#" th:text="${book.name}" th:href="@{'/template/books/' + ${book.id}}">书名</a></td>
                 <td th:text="${book.author}">作者</td>
                 <td th:text="${book.description}">说明</td>
                 <td th:switch="${book.status}">
@@ -39,6 +43,9 @@
                     <span th:case="1">在读</span>
                     <span th:case="2">已读</span>
                     <span th:case="*">状态</span>
+                </td>
+                <td>
+                    <a href="#" th:href="@{/template/books/{id}/input(id=${book.id})}">更新</a>
                 </td>
             </tr>
             </tbody>

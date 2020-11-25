@@ -41,6 +41,7 @@ public class DocumentController {
                 "</html>";
     }
 
+
     @GetMapping("/title/{title}")
     public List<Document> getDocumentsByTitle(@PathVariable String title) {
         return documentService.findDocumentByTitle(title);

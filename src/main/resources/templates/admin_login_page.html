@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Administrator Login Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8" >
+</head>
+<body>
+<div class="container" style="max-width: 700px;">
+    <h2 class="page-header">Administrator Login Page</h2>
+    <div class="well">
+        <form action="#" th:action="@{/admin/page}" th:object="${admin}" method="get">
+            <div class="form-group">
+                <label for="nameId">ID</label>
+                <input type="text" name="name" id="nameId" class="form-control" th:field="*{name}">
+            </div>
+            <div class="form-group">
+                <label for="passwordId">PASSWORD</label>
+                <input type="text" name="password" id="passwordId" class="form-control" th:field="*{password}">
+            </div>
+            <p class="text-center">
+                <!--btn primary：button is blue-->
+                <button type="submit" class="btn btn-primary">提交</button>
+            </p>
+        </form>
+    </div>
+
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>

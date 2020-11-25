@@ -1,11 +1,13 @@
 package com.databaseproject.library_system.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 public class Document {
@@ -24,6 +26,26 @@ public class Document {
     @JoinColumn(name = "publisher_id")
     @JsonIgnoreProperties({"document"})
     private Publisher publisher;
+
+    @OneToMany(mappedBy = "document", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIgnore
+    Set<JournalIssue> journalIssues;
+
+    @OneToMany(mappedBy = "book", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIgnore
+    Set<Authors> authors;
+
+    @OneToMany(mappedBy = "conferenceProceedings", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIgnore
+    Set<Chairs> chairs;
+
+    public Set<JournalIssue> getJournalIssues() {
+        return journalIssues;
+    }
+
+    public void setJournalIssues(Set<JournalIssue> journalIssues) {
+        this.journalIssues = journalIssues;
+    }
 
     public long getDoc_id() {
         return doc_id;

@@ -65,4 +65,5 @@ public class BookController {
     public int deleteByJPQL(@RequestParam long id) {
         return bookService.deleteByJPQL(id);
     }
+
 }

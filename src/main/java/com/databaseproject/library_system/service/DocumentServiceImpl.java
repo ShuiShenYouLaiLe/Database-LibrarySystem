@@ -18,6 +18,7 @@ public class DocumentServiceImpl implements DocumentService{
         return documentRepository.findById(documentId).get();
     }
 
+
     @Override
     public List<Document> findDocumentByTitle(String title) {
         return documentRepository.findDocumentsByTitle(title);

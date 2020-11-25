@@ -5,10 +5,11 @@ import com.databaseproject.library_system.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -21,6 +22,13 @@ public class BookAPI {
     @GetMapping("/books")
     public String list(Model model) {
         List<Book> books= bookService.findAll();
+        Collections.sort(books, new Comparator<Book>(){
+            @Override
+            public int compare(Book a, Book b) {
+                if (a.getStatus() == b.getStatus()) return (int)(a.getId() - b.getId());
+                return a.getStatus() - b.getStatus();
+            }
+        });
         model.addAttribute("books", books);
         return "books";
     }
@@ -36,5 +44,26 @@ public class BookAPI {
         if(book == null) book = new Book();
         model.addAttribute(book);
         return "book";
+    }
+
+    @GetMapping("/books/input")
+    public String inputPage(Model model) {
+        //注意这里的book是给前端传递的model的名字，前端要获取这个model，就得使用跟这个model一样的名字
+        model.addAttribute("book", new Book());
+        return "input";
+    }
+
+    //这里有重定向
+    @PostMapping("/books")
+    public String post(Book book) {
+        bookService.save(book);
+        return "redirect:/template/books";
+    }
+
+    @GetMapping("books/{id}/input")
+    public String inputEditPage(@PathVariable long id, Model model) {
+        Book book = bookService.findOne(id);
+        model.addAttribute("book", book);
+        return "input";
     }
 }
