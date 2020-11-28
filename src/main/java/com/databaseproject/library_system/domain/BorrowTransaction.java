@@ -8,9 +8,11 @@ import java.sql.Timestamp;
 
 @Entity
 public class BorrowTransaction {
+    /**
     @Embeddable
     public static class BorrowTransactionId implements Serializable {
         private Copy.CopyId copyId;
+
         @Column(nullable = false, updatable = false)
         @GeneratedValue(strategy = GenerationType.AUTO)
         private long bor_number;
@@ -43,8 +45,11 @@ public class BorrowTransaction {
     }
 
     @EmbeddedId
-    private BorrowTransactionId id;
+    private BorrowTransactionId id;**/
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long bor_number;
     private Timestamp bor_date_time;
 
     private Timestamp ret_date_time;
@@ -54,7 +59,6 @@ public class BorrowTransaction {
     @JsonIgnore
     private Reader reader;
 
-    @MapsId("copyId")
     @JoinColumns({
             @JoinColumn(name = "doc_id", referencedColumnName = "doc_id"),
             @JoinColumn(name = "bid", referencedColumnName = "bid"),
