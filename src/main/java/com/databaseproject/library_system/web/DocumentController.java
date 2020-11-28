@@ -33,8 +33,13 @@ public class DocumentController {
 
 
     @GetMapping("/title/{title}")
-    public List<Document> getDocumentsByTitle(@PathVariable String title) {
-        return documentService.findDocumentByTitle(title);
+    public List<DocumentInterface> getDocumentsByTitle(@PathVariable String title) {
+        List<Document> documents = documentService.findDocumentByTitle(title);
+        List<DocumentInterface> res = new ArrayList<>();
+        for (Document document : documents)  {
+            res.add(getDetails(document));
+        }
+        return res;
     }
 
     @GetMapping("/publisherName/{pub_name}")

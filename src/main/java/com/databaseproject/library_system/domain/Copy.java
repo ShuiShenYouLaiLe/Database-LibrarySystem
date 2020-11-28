@@ -16,6 +16,7 @@ public class Copy {
         @Column(name = "bid", nullable = false, updatable = false)
         private long bid;
 
+        @GeneratedValue(strategy = GenerationType.AUTO)
         @Column(nullable = false, updatable = false)
         private long copy_num;
 
