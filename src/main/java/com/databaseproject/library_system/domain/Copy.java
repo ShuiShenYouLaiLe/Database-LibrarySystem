@@ -57,6 +57,8 @@ public class Copy {
 
     private String position;
 
+    private int copyStatus;
+
     @ManyToOne
     @JoinColumn(name = "doc_id", insertable = false, updatable = false)
     @JsonIgnore
@@ -105,4 +107,30 @@ public class Copy {
     public void setBranch(Branch branch) {
         this.branch = branch;
     }
+
+    public int getCopyStatus() {
+        return copyStatus;
+    }
+
+    public void setCopyStatus(int copyStatus) {
+        this.copyStatus = copyStatus;
+    }
+
+    public Set<BorrowTransaction> getBorrowTransactions() {
+        return borrowTransactions;
+    }
+
+    public void setBorrowTransactions(Set<BorrowTransaction> borrowTransactions) {
+        this.borrowTransactions = borrowTransactions;
+    }
+
+    public Set<ReservationTransaction> getReservationTransactions() {
+        return reservationTransactions;
+    }
+
+    public void setReservationTransactions(Set<ReservationTransaction> reservationTransactions) {
+        this.reservationTransactions = reservationTransactions;
+    }
+
+
 }

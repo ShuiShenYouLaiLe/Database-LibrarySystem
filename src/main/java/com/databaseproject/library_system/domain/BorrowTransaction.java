@@ -8,63 +8,75 @@ import java.sql.Timestamp;
 
 @Entity
 public class BorrowTransaction {
-    /**
-    @Embeddable
-    public static class BorrowTransactionId implements Serializable {
-        private Copy.CopyId copyId;
-
-        @Column(nullable = false, updatable = false)
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private long bor_number;
-
-        public Copy.CopyId getCopyId() {
-            return copyId;
-        }
-
-        public long getBor_number() {
-            return bor_number;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            BorrowTransactionId that = (BorrowTransactionId) o;
-
-            if (bor_number != that.bor_number) return false;
-            return copyId != null ? copyId.equals(that.copyId) : that.copyId == null;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = copyId != null ? copyId.hashCode() : 0;
-            result = 31 * result + (int) (bor_number ^ (bor_number >>> 32));
-            return result;
-        }
-    }
-
-    @EmbeddedId
-    private BorrowTransactionId id;**/
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long bor_number;
+
     private Timestamp bor_date_time;
 
     private Timestamp ret_date_time;
+
+    private int reservationStatus;
 
     @ManyToOne
     @JoinColumn(name = "reader_id", insertable = false, updatable = false)
     @JsonIgnore
     private Reader reader;
 
+    @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "doc_id", referencedColumnName = "doc_id"),
             @JoinColumn(name = "bid", referencedColumnName = "bid"),
             @JoinColumn(name = "copy_num", referencedColumnName = "copy_num")
     })
-    @ManyToOne
+    @JsonIgnore
     private Copy copy;
 
+    public BorrowTransaction() {
+    }
+
+    public Timestamp getBor_date_time() {
+        return bor_date_time;
+    }
+
+    public void setBor_date_time(Timestamp bor_date_time) {
+        this.bor_date_time = bor_date_time;
+    }
+
+    public Timestamp getRet_date_time() {
+        return ret_date_time;
+    }
+
+    public void setRet_date_time(Timestamp ret_date_time) {
+        this.ret_date_time = ret_date_time;
+    }
+
+    public Reader getReader() {
+        return reader;
+    }
+
+    public void setReader(Reader reader) {
+        this.reader = reader;
+    }
+
+    public Copy getCopy() {
+        return copy;
+    }
+
+    public void setCopy(Copy copy) {
+        this.copy = copy;
+    }
+
+    public long getBor_number() {
+        return bor_number;
+    }
+
+    public int getReservationStatus() {
+        return reservationStatus;
+    }
+
+    public void setReservationStatus(int reservationStatus) {
+        this.reservationStatus = reservationStatus;
+    }
 }

@@ -1,9 +1,9 @@
 package com.databaseproject.library_system.model;
 
-public enum CopyStatus {
-    MISSED(0), RESERVED(1), BORROWED(3), AVAILABLE(4);
+public enum ReservationStatus {
+    DELETED(0), RESERVED(1), FINISHED(3);
     private final int status;
-    CopyStatus(int status) {
+    ReservationStatus(int status) {
         this.status = status;
     }
     public int getStatusValue() {
