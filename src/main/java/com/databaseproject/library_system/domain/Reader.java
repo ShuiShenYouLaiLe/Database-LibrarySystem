@@ -1,9 +1,9 @@
 package com.databaseproject.library_system.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -16,7 +16,31 @@ public class Reader {
     private long phone_no;
     private String address;
 
+    @OneToMany(mappedBy = "reader", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIgnore
+    Set<BorrowTransaction> borrowTransactions;
+
+    @OneToMany(mappedBy = "reader", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIgnore
+    Set<ReservationTransaction> reservationTransactions;
+
     public Reader() {
+    }
+
+    public Set<ReservationTransaction> getReservationTransactions() {
+        return reservationTransactions;
+    }
+
+    public void setReservationTransactions(Set<ReservationTransaction> reservationTransactions) {
+        this.reservationTransactions = reservationTransactions;
+    }
+
+    public Set<BorrowTransaction> getBorrowTransactions() {
+        return borrowTransactions;
+    }
+
+    public void setBorrowTransactions(Set<BorrowTransaction> borrowTransactions) {
+        this.borrowTransactions = borrowTransactions;
     }
 
     public long getReader_id() {

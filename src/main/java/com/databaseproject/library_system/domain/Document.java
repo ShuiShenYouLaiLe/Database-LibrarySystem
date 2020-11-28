@@ -41,6 +41,10 @@ public class Document {
     @JsonIgnore
     Set<Chairs> chairs;
 
+    @OneToMany(mappedBy = "document", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIgnore
+    Set<Copy> copies;
+
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "editor_id", referencedColumnName = "pid",insertable = false, updatable = false)
     @JsonIgnore
@@ -155,5 +159,13 @@ public class Document {
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
+    }
+
+    public Set<Copy> getCopies() {
+        return copies;
+    }
+
+    public void setCopies(Set<Copy> copies) {
+        this.copies = copies;
     }
 }
