@@ -12,4 +12,6 @@ public interface CopyService {
     Copy save(Copy copy);
     void remove(Copy copy);
     List<Copy> findCopiesByBranch(Branch branch);
+    Copy findCopyById(long bid, long copy_num, long doc_id);
+    List<Copy> findCopiesReservedByReader(long reader_Id);
 }

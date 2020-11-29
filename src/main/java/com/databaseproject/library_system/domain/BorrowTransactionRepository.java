@@ -2,6 +2,9 @@ package com.databaseproject.library_system.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BorrowTransactionRepository extends JpaRepository<BorrowTransaction, Long> {
+import java.util.List;
 
+public interface BorrowTransactionRepository extends JpaRepository<BorrowTransaction, Long> {
+    List<BorrowTransaction> getBorrowTransactionsByReaderAndReservationStatus(Reader reader, int status);
+    BorrowTransaction getBorrowTransactionByCopyAndReservationStatus(Copy copy, int status);
 }

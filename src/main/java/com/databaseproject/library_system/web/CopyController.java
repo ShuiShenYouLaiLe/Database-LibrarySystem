@@ -21,6 +21,19 @@ public class CopyController {
     @Autowired
     DocumentService documentService;
 
+    @GetMapping("/copy")
+    public Copy findCopy(@RequestParam long bid,
+                         @RequestParam long copy_num,
+                         @RequestParam long doc_id) {
+        Copy copy = new Copy();
+        try {
+            copy = copyService.findCopyById(bid, copy_num, doc_id);
+        } catch (Exception e) {
+
+        }
+        return copy;
+    }
+
     @GetMapping("/copies/availability")
     public List<Copy> findAvailableCopiesByDocument(Document document) {
         List<Copy> copies = copyService.findCopiesByDocument(document);

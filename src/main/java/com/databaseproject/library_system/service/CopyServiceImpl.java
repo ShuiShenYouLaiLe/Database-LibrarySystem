@@ -33,4 +33,14 @@ public class CopyServiceImpl implements CopyService{
     public List<Copy> findCopiesByBranch(Branch branch) {
         return copyRepository.findCopiesByBranch(branch);
     }
+
+    @Override
+    public Copy findCopyById(long bid, long copy_num, long doc_id) {
+        return copyRepository.findCopyByCopyId(bid, doc_id, copy_num);
+    }
+
+    @Override
+    public List<Copy> findCopiesReservedByReader(long reader_Id) {
+        return copyRepository.findCopiesByReader(reader_Id);
+    }
 }
