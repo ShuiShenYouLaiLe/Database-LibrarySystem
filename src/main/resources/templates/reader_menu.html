@@ -11,32 +11,45 @@
 <body>
 <div class="container" style="max-width: 700px">
 
-    <h2 class="page-header" style="margin-top: 50px">Details</h2>
+    <h3 class="page-header" style="margin-top: 50px">
+        Welcome,
+        <span th:text="${reader.reader_name}">Jiang</span>
+        ! How can I help you today?
+    </h3>
     <div class="well">
         <p>
-            <strong>书名：</strong><span th:text="${book.name}">我们仨</span>
+            <a herf="#" th:href="@{'/reader/document/id'}">Search a document by ID</a>
         </p>
         <p>
-            <strong>作者：</strong><span th:text="${book.author}">蛤蛤</span>
+            <a herf="#" th:href="@{'/reader/document/title'}">Search document by title</a>
         </p>
         <p>
-            <strong>说明：</strong><span th:text="${book.description}">大发财</span>
+            <a herf="#" th:href="@{'/reader/document/publisher'}">Search document by publisher name</a>
         </p>
-        <p th:switch="${book.status}">
-            <strong>状态：</strong>
-            <span th:case="0">想读</span>
-            <span th:case="1">在读</span>
-            <span th:case="2">已读</span>
+        <p>
+            <a herf="#" th:href="@{'/reserve/input'}">Document Reserve</a>
         </p>
-    </div>
-    <div class="alert alert-success" th:unless="${book.status == 0}">
-        <strong>不错</strong>，闷声发大财！
-    </div>
-    <div class="alert alert-warning" th:if="${book.status == 0}">
-        <strong>angry</strong>！拉出去续了！
+        <p>
+            <a herf="#" th:href="@{'/checkout'}">Document Checkout</a>
+        </p>
+        <p>
+            <a herf="#" th:href="@{'/return/all'}">Return All Documents</a>
+        </p>
+        <p>
+            <a herf="#" th:href="@{'/fine'}">Fine Calculator</a>
+        </p>
+        <p>
+            <a herf="#" th:href="@{'/reserved'}">See All Reservation History</a>
+        </p>
+        <p>
+            <a herf="#" th:href="@{'/reserved/copies'}">See Reserved Copies</a>
+        </p>
+        <p>
+            <a herf="#" th:href="@{'/document/publisher/2'}">Find Document Detail By Publisher</a>
+        </p>
     </div>
     <!--javascript.go(-1): return to previous page-->
-    <a href="javascript:history.go(-1)" class="btn btn-default">return</a>
+    <a herf="#" th:href="@{'/login'}" class="btn btn-default">return</a>
 </div>
 
 

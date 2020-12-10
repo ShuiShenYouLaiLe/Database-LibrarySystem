@@ -32,6 +32,21 @@ public class Copy {
             return copy_num;
         }
 
+        public void setCopy_num(long copy_num) {
+            this.copy_num = copy_num;
+        }
+
+        public void setDoc_id(long doc_id) {
+            this.doc_id = doc_id;
+        }
+
+        public void setBid(long bid) {
+            this.bid = bid;
+        }
+
+        public CopyId() {
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -52,6 +67,7 @@ public class Copy {
             return result;
         }
     }
+
 
     @EmbeddedId
     private CopyId id;
@@ -127,6 +143,10 @@ public class Copy {
 
     public Set<ReservationTransaction> getReservationTransactions() {
         return reservationTransactions;
+    }
+
+    public void setId(CopyId id) {
+        this.id = id;
     }
 
     public void setReservationTransactions(Set<ReservationTransaction> reservationTransactions) {

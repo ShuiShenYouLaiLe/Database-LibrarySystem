@@ -18,7 +18,7 @@ public class ReservationTransaction {
     private int reservationStatus;
 
     @ManyToOne
-    @JoinColumn(name = "reader_id", insertable = false, updatable = false)
+    @JoinColumn(name = "reader_id", insertable = true, updatable = true)
     @JsonIgnore
     private Reader reader;
 
@@ -30,6 +30,7 @@ public class ReservationTransaction {
     })
     @JsonIgnore
     private Copy copy;
+
 
     public Timestamp getRes_date_time() {
         return res_date_time;

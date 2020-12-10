@@ -30,7 +30,7 @@ public class BorrowAndReserveUtil {
         List<ReservationTransaction> valid_trans = new ArrayList<>();
         Date date = new Date();
         for (ReservationTransaction resTran: resTrans) {
-            if (date.getTime() - resTran.getRes_date_time().getTime() <= 86400) {
+            if (date.getTime() - resTran.getRes_date_time().getTime() <= 86400000) {
                 valid_trans.add(resTran);
             } else {
                 Copy copy = resTran.getCopy();

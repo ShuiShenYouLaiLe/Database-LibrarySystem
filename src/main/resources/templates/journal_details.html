@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>documents</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8" >
+</head>
+<body>
+<div class="container">
+    <h2 class="page-header">
+        Journal Volume Details
+    </h2>
+    <div class="well">
+        <p>
+            <strong>volume number：</strong><span th:text="${journal.volume_num}">volume_num</span>
+        </p>
+        <p>
+            <strong>chief editor name：</strong><span th:text="${journal.chiefEditor.p_name}">name</span>
+        </p>
+    </div>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Issue number</th>
+            <th>Scope</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--book: the class from backend; books: the object name from backend-->
+        <tr th:each="issue,iterStat:${journal.journalIssues}">
+            <td th:text="${iterStat.count}">1</td>
+            <td th:text="${issue.scope}">scope</td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="javascript:history.go(-1)" class="btn btn-default">return</a>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>

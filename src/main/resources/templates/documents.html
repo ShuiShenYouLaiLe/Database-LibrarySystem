@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>documents</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8" >
+</head>
+<body>
+<div class="container">
+    <h2 class="page-header">
+        <span th:text="${reader.reader_name}"></span>
+        ,Here are the documents you searched
+    </h2>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Publication Date</th>
+            <th>Publisher Name</th>
+            <th>Publisher Address</th>
+            <th>Document Type</th>
+            <th>       </th>
+            <th>       </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--book: the class from backend; books: the object name from backend-->
+        <tr th:each="document,iterStat:${documents}">
+            <td th:text="${iterStat.count}">1</td>
+            <td th:text="${document.title}">title</td>
+            <td th:text="${document.p_date}">publication date</td>
+            <td th:text="${document.publisher.pub_name}">publisher name</td>
+            <td th:text="${document.publisher.address}">publisher address</td>
+            <td th:switch="${document.doc_type}">
+                <span th:case="1">Book</span>
+                <span th:case="2">Journal Volume</span>
+                <span th:case="3">Proceedings</span>
+            </td>
+            <td><a herf="#" th:text="Details" th:href="@{'/document/details/' + ${document.doc_id}}"></a></td>
+            <td>
+                <a href="#" th:href="@{'/copies/availability/' + ${document.doc_id}}">Check availability</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a herf="#" th:href="@{'/reader/op'}" class="btn btn-default">return</a>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>

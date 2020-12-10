@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>documents</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8" >
+</head>
+<body>
+<div class="container">
+    <h2 class="page-header">
+        Thank you for using our system! See the fine details:
+    </h2>
+    <!--text-right:放在右边-->
+    <!--为实现页面跳转需要专门写一个controller-->
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Borrow Number</th>
+            <th>Borrow Date</th>
+            <th>Fine</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--book: the class from backend; books: the object name from backend-->
+        <tr th:each="tran,iterStat:${trans}">
+            <td th:text="${iterStat.count}">1</td>
+            <td th:text="${tran.bor_number}">borrow number</td>
+            <td th:text="${tran.bor_date_time}">borrow date</td>
+            <td th:text="${tran.fine}">0.0</td>
+        </tr>
+        </tbody>
+    </table>
+    <a herf="#" th:href="@{'/reader/op'}" class="btn btn-default">return</a>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>

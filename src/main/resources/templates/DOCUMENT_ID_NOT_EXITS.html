@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Administrator Login Page</title>
+    <title>Copy Input</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -10,24 +10,15 @@
 </head>
 <body>
 <div class="container" style="max-width: 700px;">
-    <h2 class="page-header">Administrator Login Page</h2>
+    <h2 class="page-header">Failed! Document id does not exits!</h2>
     <div class="well">
-        <form action="#" th:action="@{/admin/page}" th:object="${admin}" method="get">
-            <div class="form-group">
-                <label for="nameId">ID</label>
-                <input type="text" name="name" id="nameId" class="form-control" th:field="*{name}">
-            </div>
-            <div class="form-group">
-                <label for="passwordId">PASSWORD</label>
-                <input type="text" name="password" id="passwordId" class="form-control" th:field="*{password}">
-            </div>
+        <form action="#" th:action="@{/reader/op}" method="get">
             <p class="text-center">
                 <!--btn primary：button is blue-->
-                <button type="submit" class="btn btn-primary">submit</button>
+                <button type="submit" class="btn btn-primary">OK</button>
             </p>
         </form>
     </div>
-    <a herf="#" th:href="@{'/login'}" class="btn btn-default">return</a>
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -1,10 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Admin Operation Page</title>
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap-theme.min.css">
 </head>
 <body>
-    <p>just a test</p>
+<div class="container" style="max-width: 700px">
+
+    <h2 class="page-header" style="margin-top: 50px">Admin menu</h2>
+    <div class="well">
+        <p>
+            <a herf="#" th:href="@{'/admin/copy'}">Add a document copy</a>
+        </p>
+        <p>
+            <a herf="#" th:href="@{'/admin/copy/status'}">Search document copy and check its status</a>
+        </p>
+        <p>
+            <a herf="#" th:href="@{'/admin/reader'}">Add new Reader</a>
+        </p>
+        <p>
+            <a herf="#" th:href="@{'/branches'}">Get branch information</a>
+        </p>
+        <p>
+            <a herf="#" th:href="@{'/special/query/1'}">Get Top N frequent borrowers by BRANCH</a>
+        </p>
+        <p>
+            <a herf="#" th:href="@{'/special/query/2'}">Get Top N frequent borrowers in library</a>
+        </p>
+        <p>
+            <a herf="#" th:href="@{'/special/query/3'}">Get Top N frequent borrowed document by BRANCH</a>
+        </p>
+        <p>
+            <a herf="#" th:href="@{'/special/query/4'}">Get Top N frequent borrowed document in library</a>
+        </p>
+
+        <p>
+            <a herf="#" th:href="@{'/special/query/5'}">Get Top 10 frequent borrowed document by year</a>
+        </p>
+
+        <p>
+            <a herf="#" th:href="@{'/special/query/6'}">Get average fine for each branch in given period</a>
+        </p>
+
+    </div>
+    <!--javascript.go(-1): return to previous page-->
+    <a herf="#" th:href="@{'/login'}" class="btn btn-default">return</a>
+</div>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
 </body>
 </html>

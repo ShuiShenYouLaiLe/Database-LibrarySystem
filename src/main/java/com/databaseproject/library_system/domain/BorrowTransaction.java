@@ -20,7 +20,7 @@ public class BorrowTransaction {
     private int reservationStatus;
 
     @ManyToOne
-    @JoinColumn(name = "reader_id", insertable = false, updatable = false)
+    @JoinColumn(name = "reader_id", insertable = true, updatable = true)
     @JsonIgnore
     private Reader reader;
 
@@ -35,6 +35,7 @@ public class BorrowTransaction {
 
     public BorrowTransaction() {
     }
+
 
     public Timestamp getBor_date_time() {
         return bor_date_time;

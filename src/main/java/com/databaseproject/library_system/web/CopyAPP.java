@@ -1,48 +1,59 @@
 package com.databaseproject.library_system.web;
 
+import com.databaseproject.library_system.domain.Branch;
 import com.databaseproject.library_system.domain.Copy;
 import com.databaseproject.library_system.domain.Document;
 import com.databaseproject.library_system.model.CopyStatus;
+import com.databaseproject.library_system.service.BranchService;
 import com.databaseproject.library_system.service.CopyService;
 import com.databaseproject.library_system.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api")
-public class CopyController {
+@Controller
+public class CopyAPP {
+    @Autowired
+    CopyController copyController;
+
     @Autowired
     CopyService copyService;
 
     @Autowired
     DocumentService documentService;
 
+    @Autowired
+    BranchService branchService;
+
     @GetMapping("/copy")
-    public Copy findCopy(@RequestParam long bid,
-                         @RequestParam long copy_num,
-                         @RequestParam long doc_id) {
+    public String findCopy(@RequestParam long bid,
+                           @RequestParam long copy_num,
+                           @RequestParam long doc_id, Model model) {
         Copy copy = new Copy();
         try {
             copy = copyService.findCopyById(bid, copy_num, doc_id);
         } catch (Exception e) {
 
         }
-        return copy;
+        if (copy == null) return "failed_page";
+        model.addAttribute("copy", copy);
+        return "copy";
     }
 
-    @GetMapping("/copies/availability/{id}")
-    public List<Copy> findAvailableCopiesByDocument(@PathVariable long id) {
+    @GetMapping("/copies/availability/{doc_id}")
+    public String findAvailableCopiesByDocument(@PathVariable long doc_id, Model model) {
         Document document = null;
         try {
-            document = documentService.findDocumentById(id);
+            document = documentService.findDocumentById(doc_id);
         } catch(Exception e) {
 
         }
-        if (document == null) return new ArrayList<>();
+        if (document == null) return "COPY_NOT_AVAILABLE";
         List<Copy> copies = copyService.findCopiesByDocument(document);
         List<Copy> res = new ArrayList<>();
         for (Copy copy: copies) {
@@ -50,24 +61,29 @@ public class CopyController {
                 res.add(copy);
             }
         }
-        return res;
+        if (res == null || res.isEmpty()) return "COPY_NOT_AVAILABLE";
+        model.addAttribute("copies", res);
+        return "copies";
     }
 
     @PostMapping("/copy")
     @Transactional
-    public Copy addCopy(@RequestParam long bid,
+    public String addCopy(@RequestParam long bid,
                         @RequestParam long doc_id,
                         @RequestParam String position) {
         Document document = null;
+        Branch branch = null;
         try {
             document = documentService.findDocumentById(doc_id);
+            branch = branchService.getBranchById(bid);
         } catch(Exception e) {
 
         }
-        if (document == null) return new Copy();
+        if (document == null || branch == null) return "failed_page";
         List<Copy> copies = copyService.findCopiesByDocument(document);
         long num = 1;
         for (Copy c: copies) {
+            if (c.getId().getBid() != bid) continue;
             num = Math.max(c.getId().getCopy_num(), num);
         }
         Copy copy = new Copy();
@@ -78,16 +94,18 @@ public class CopyController {
         copy.setId(id);
         copy.setPosition(position);
         copy.setCopyStatus(CopyStatus.AVAILABLE.getStatusValue());
-        return copyService.save(copy);
+        Copy c = copyService.save(copy);
+        if (c == null) return "failed_page";
+        return "Successful_Page";
     }
 
     @PutMapping("/copy/missed")
     public Copy updateCopyMissed(@RequestParam long bid,
-                           @RequestParam long copy_num,
-                           @RequestParam long doc_id) {
+                                 @RequestParam long copy_num,
+                                 @RequestParam long doc_id) {
         Copy copy = null;
         try {
-            copy = findCopy(bid, copy_num, doc_id);
+            copy = copyController.findCopy(bid, copy_num, doc_id);
         } catch(Exception e) {
 
         }
@@ -98,11 +116,11 @@ public class CopyController {
 
     @PutMapping("/copy/reserved")
     public Copy updateCopyReserved(@RequestParam long bid,
-                           @RequestParam long copy_num,
-                           @RequestParam long doc_id) {
+                                   @RequestParam long copy_num,
+                                   @RequestParam long doc_id) {
         Copy copy = null;
         try {
-            copy = findCopy(bid, copy_num, doc_id);
+            copy = copyController.findCopy(bid, copy_num, doc_id);
         } catch(Exception e) {
 
         }
@@ -113,11 +131,11 @@ public class CopyController {
 
     @PutMapping("/copy/borrowed")
     public Copy updateCopyBorrowed(@RequestParam long bid,
-                           @RequestParam long copy_num,
-                           @RequestParam long doc_id) {
+                                   @RequestParam long copy_num,
+                                   @RequestParam long doc_id) {
         Copy copy = null;
         try {
-            copy = findCopy(bid, copy_num, doc_id);
+            copy = copyController.findCopy(bid, copy_num, doc_id);
         } catch(Exception e) {
 
         }
@@ -128,11 +146,11 @@ public class CopyController {
 
     @PutMapping("/copy/available")
     public Copy updateCopyAvailable(@RequestParam long bid,
-                                   @RequestParam long copy_num,
-                                   @RequestParam long doc_id) {
+                                    @RequestParam long copy_num,
+                                    @RequestParam long doc_id) {
         Copy copy = null;
         try {
-            copy = findCopy(bid, copy_num, doc_id);
+            copy = copyController.findCopy(bid, copy_num, doc_id);
         } catch(Exception e) {
 
         }

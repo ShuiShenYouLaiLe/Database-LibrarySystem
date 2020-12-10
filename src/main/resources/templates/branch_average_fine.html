@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Branches</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8" >
+</head>
+<body>
+<div class="container">
+    <h2 class="page-header">
+        <span th:text="${str}"></span>
+    </h2>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>bid</th>
+            <th>name</th>
+            <th>average fine</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="detail,iterStat:${details}">
+            <td th:text="${iterStat.count}">1</td>
+            <td th:text="${detail.bid}">rid</td>
+            <td th:text="${detail.name}">Name</td>
+            <td th:text="${detail.average_fine}">Count</td>
+        </tr>
+        </tbody>
+    </table>
+    <a herf="#" th:href="@{'/admin/op'}" class="btn btn-default">return</a>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>

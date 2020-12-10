@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>documents</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8" >
+</head>
+<body>
+<div class="container">
+    <h3 class="page-header">
+        Here are the document Id and name for publisher
+        <span th:text="${pub_name}"></span>
+    </h3>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Document Id</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--book: the class from backend; books: the object name from backend-->
+        <tr th:each="document,iterStat:${documents}">
+            <td th:text="${iterStat.count}">1</td>
+            <td th:text="${document.title}">title</td>
+            <td th:text="${document.doc_id}">document_id</td>
+        </tr>
+        </tbody>
+    </table>
+    <a herf="#" th:href="@{'/reader/op'}" class="btn btn-default">return</a>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>

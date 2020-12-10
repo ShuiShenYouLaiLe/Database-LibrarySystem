@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Administrator Login Page</title>
+    <title>Document Id Input</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -10,24 +10,28 @@
 </head>
 <body>
 <div class="container" style="max-width: 700px;">
-    <h2 class="page-header">Administrator Login Page</h2>
+    <h2 class="page-header">Please input copy details:</h2>
     <div class="well">
-        <form action="#" th:action="@{/admin/page}" th:object="${admin}" method="get">
+        <form action="#" th:action="@{/fine/result}" method="get">
             <div class="form-group">
-                <label for="nameId">ID</label>
-                <input type="text" name="name" id="nameId" class="form-control" th:field="*{name}">
+                <label for="docIdId">document Id</label>
+                <input type="text" name="doc_id" id="docIdId" class="form-control" th:field="${id.doc_id}">
             </div>
             <div class="form-group">
-                <label for="passwordId">PASSWORD</label>
-                <input type="text" name="password" id="passwordId" class="form-control" th:field="*{password}">
+                <label for="bidId">branch Id</label>
+                <input type="text" name="bid" id="bidId" class="form-control" th:field="${id.bid}">
+            </div>
+            <div class="form-group">
+                <label for="copy_numId">copy number</label>
+                <input type="text" name="copy_num" id="copy_numId" class="form-control" th:field="${id.copy_num}">
             </div>
             <p class="text-center">
                 <!--btn primary：button is blue-->
-                <button type="submit" class="btn btn-primary">submit</button>
+                <button type="submit" class="btn btn-primary">Calculate</button>
             </p>
         </form>
     </div>
-    <a herf="#" th:href="@{'/login'}" class="btn btn-default">return</a>
+    <a href="javascript:history.go(-1)" class="btn btn-default">return</a>
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

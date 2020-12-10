@@ -78,4 +78,8 @@ public class Reader {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public void setReader_id(long reader_id) {
+        this.reader_id = reader_id;
+    }
 }

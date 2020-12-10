@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>documents</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap-theme.min.css">
+    <meta charset="UTF-8" >
+</head>
+<body>
+<div class="container">
+    <h2 class="page-header">
+        Available copies
+    </h2>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Copy Number</th>
+            <th>Branch Id</th>
+            <th>Position</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--book: the class from backend; books: the object name from backend-->
+        <tr th:each="copy,iterStat:${copies}">
+            <td th:text="${iterStat.count}">1</td>
+            <td th:text="${copy.id.copy_num}">copy number</td>
+            <td th:text="${copy.id.bid}">branch id</td>
+            <td th:text="${copy.position}">position</td>
+            <td th:switch="${copy.copyStatus}">
+                <span th:case="0">Missed</span>
+                <span th:case="1">Reserved</span>
+                <span th:case="3">Borrowed</span>
+                <span th:case="4">Available</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a herf="#" th:href="@{'/reader/op'}" class="btn btn-default">return</a>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>

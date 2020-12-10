@@ -7,6 +7,8 @@ import com.databaseproject.library_system.domain.Reader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BorrowServiceImpl implements BorrowService{
 
@@ -26,5 +28,10 @@ public class BorrowServiceImpl implements BorrowService{
     @Override
     public BorrowTransaction add(BorrowTransaction borrowTransaction) {
         return repository.save(borrowTransaction);
+    }
+
+    @Override
+    public List<BorrowTransaction> getByReaderAndStatus(Reader reader, int status) {
+        return repository.getBorrowTransactionsByReaderAndReservationStatus(reader, status);
     }
 }

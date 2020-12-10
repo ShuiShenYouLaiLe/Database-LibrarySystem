@@ -41,7 +41,7 @@ public class BorrowAndReserveController {
     BorrowAndReserveUtil util;
 
     @Transactional
-    @PostMapping("reserve")
+    @PostMapping("/reserve")
     public ReservationTransaction reserveCopy(@RequestParam long reader_id,
                                               @RequestParam long bid,
                                               @RequestParam long doc_id,
@@ -50,9 +50,10 @@ public class BorrowAndReserveController {
         if (!util.allowedForReserve(reader)) return new ReservationTransaction();
         Copy copy = copyService.findCopyById(bid, copy_num, doc_id);
         copy.setCopyStatus(CopyStatus.RESERVED.getStatusValue());
+        copyService.save(copy);
         ReservationTransaction trans = new ReservationTransaction();
         trans.setCopy(copy);
-        trans.setReader(readerService.getReaderById(reader_id));
+        trans.setReader(reader);
         trans.setRes_date_time(new Timestamp(new Date().getTime()));
         trans.setReservationStatus(ReservationStatus.RESERVED.getStatusValue());
         return reservationService.create(trans);
@@ -77,7 +78,13 @@ public class BorrowAndReserveController {
     @Transactional
     @PostMapping("/checkout/{reader_id}")
     public List<BorrowTransaction> checkOut(@PathVariable long reader_id) {
-        Reader reader = readerService.getReaderById(reader_id);
+        Reader reader = null;
+        try {
+            reader = readerService.getReaderById(reader_id);
+        } catch(Exception e) {
+
+        }
+        if (reader == null) return new ArrayList<>();
         List<ReservationTransaction> reservations = reservationService
                 .getDataByReaderAndStatus(reader, ReservationStatus.RESERVED.getStatusValue());
         List<BorrowTransaction> borrows = new ArrayList<>();
@@ -93,18 +100,26 @@ public class BorrowAndReserveController {
                                         @RequestParam long bid,
                                         @RequestParam long doc_id,
                                         @RequestParam long copy_num) {
-        Copy copy = copyService.findCopyById(bid, copy_num, doc_id);
-        BorrowTransaction borrowTransaction = null;
+        Copy copy = null;
         try {
-            borrowTransaction = borrowService.getByCopy(copy, CopyStatus.BORROWED.getStatusValue());
-        } catch(Exception e) {
+            copy = copyService.findCopyById(bid, copy_num, doc_id);
+        } catch (Exception e) {
 
+        }
+        if (copy == null) return "No data found";
+        BorrowTransaction borrowTransaction = null;
+        for (BorrowTransaction t: copy.getBorrowTransactions()) {
+            if (t.getReservationStatus() == BorrowStatus.BORROWED.getStatusValue()) {
+                borrowTransaction = t;
+                break;
+            }
         }
         if (borrowTransaction == null ||
                 borrowTransaction.getReader().getReader_id() != reader_id) return "No data found";
         copy.setCopyStatus(CopyStatus.AVAILABLE.getStatusValue());
         copyService.save(copy);
         borrowTransaction.setReservationStatus(BorrowStatus.RETURNED.getStatusValue());
+        borrowTransaction.setRet_date_time(new Timestamp(new Date().getTime()));
         borrowService.update(borrowTransaction);
         return "Your will be fined for " + calcFine(borrowTransaction) + " dollars";
     }
@@ -115,19 +130,26 @@ public class BorrowAndReserveController {
                              @RequestParam long bid,
                              @RequestParam long doc_id,
                              @RequestParam long copy_num) {
-        Copy copy = copyService.findCopyById(bid, copy_num, doc_id);
-        BorrowTransaction borrowTransaction = null;
+        Copy copy = null;
         try {
-            borrowTransaction = borrowService.getByCopy(copy, CopyStatus.BORROWED.getStatusValue());
-        } catch(Exception e) {
+            copy = copyService.findCopyById(bid, copy_num, doc_id);
+        } catch (Exception e) {
 
+        }
+        if (copy == null) return "No data found";
+        BorrowTransaction borrowTransaction = null;
+        for (BorrowTransaction t: copy.getBorrowTransactions()) {
+            if (t.getReservationStatus() == BorrowStatus.BORROWED.getStatusValue()) {
+                borrowTransaction = t;
+                break;
+            }
         }
         if (borrowTransaction == null ||
                 borrowTransaction.getReader().getReader_id() != reader_id) return "No data found";
-        return "Your will be fined for " + calcFine(borrowTransaction) + " dollars";
+        return "Your will be fined for " + String.format("%.1f", calcFine(borrowTransaction)) + " dollars";
     }
 
-    @GetMapping("reserved/copies/{id}")
+    @GetMapping("/reserved/copies/{id}")
     public List<Copy> getReservedCopies(@PathVariable long id) {
         return copyService.findCopiesReservedByReader(id);
     }
@@ -135,7 +157,7 @@ public class BorrowAndReserveController {
     private double calcFine(BorrowTransaction borrowTransaction) {
         long current = new Date().getTime();
         long prev = borrowTransaction.getBor_date_time().getTime();
-        if (current - prev <= 86400 * 20) return 0.0;
-        return (((current - prev) + 86400) / 86400) * 0.2;
+        if (current - prev <= 86400000l * 20) return 0.0;
+        return (((current - prev) + 86400000l) / 86400000l) * 0.2 - 4.0;
     }
 }
